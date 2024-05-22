@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <chrono>
 
 //Big O Notation
 // 1. 곱하기 - 변수를 제외한 상수는 무시
@@ -22,40 +21,42 @@ bool Descending(int x, int y)
     return x < y;
 }
 
-// Time Complexity : 
-// Space Complexity : 
+// Time Complexity : O(n^2)
+// Space Complexity : O(1)
+//Sequential Sort
 
-void Sort(int numbers[], int count, Comparison f)
+void SequentialSort(int numbers[], int count, Comparison f)
 {
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < count - 1; i++)
     {
-        for (int j = 0; j < count; j++)
+        for (int j = i + 1; j < count; j++)
         {
-            if (f(numbers[i], numbers[j]))
+            if (f(numbers[i] < numbers[j]))
             {
-                int temp = numbers[i];
-                numbers[i] = numbers[j];
-                numbers[j] = temp;
+                numbers[i] < numbers[j];
+                int temp++ ;
+                numbers[temp] = numbers[i];
             }
         }
     }
 }
+
+void PrintArray(int input[], int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        std::cout << input[i] << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 
 int main()
 {
     const int SIZE_ARRAY{ 10 };
     int scores[SIZE_ARRAY]{ 20, 10, 40, 30, 70, 90, 80, 60, 50, 100 };
 
-    auto startTime = std::chrono::system_clock::now();
-    Sort(scores, SIZE_ARRAY, Ascending);
-    auto endTime = std::chrono::system_clock::now();
-
-    auto duration = endTime - startTime;
-    std::cout << "Sort() - " << duration.count() << "ms" << std::endl;
-
-    for (int i = 0; i < SIZE_ARRAY; i++)
-    {
-        std::cout << scores[i] << std::endl;
-    }
+    SequentialSort(scores, SIZE_ARRAY, Ascending);
     //32, 93 ,72, 17, 44
+    PrintArray(scores, SIZE_ARRAY);
 }
